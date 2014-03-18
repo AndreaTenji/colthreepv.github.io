@@ -1,0 +1,277 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>filesystem, ext4, ntfs, tuxera, extfs, windows, linux, ubuntu | Grumpy Dev Blog</title>
+  <meta name="author" content="Valerio Coltre">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Grumpy Dev Blog"/>
+
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Grumpy Dev Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" type="text/css">
+  <!--[if lt IE 9]><script src="/libs/html5shiv/dist/html5shiv.js"></script><![endif]-->
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    var photos = $('.sidebar .personal-photo');
+    // choose a random picture and show it
+    photos.eq(Math.floor(Math.random() * photos.length)).removeClass('hidden');
+
+    $('.sidebar').delay(400).animate({ width: '285px' }, 500, function() {
+      $('.personal-info').css({ display: 'table' }).hide().fadeIn(500);
+      $('.sidebar > .search').hide().fadeIn(500);
+    });
+  });
+  </script>
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42587136-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header class="inner"><header>
+  <div class="inner">
+    <a href="/">
+      <p class="main-col blog-title">Grumpy Dev Blog</p>
+    </a>
+  </div>
+</header>
+</header>
+  <div class="inner">
+    <div class="main-col alignright"><div class="wrapper">
+<h2 class="archive-title tag">filesystem, ext4, ntfs, tuxera, extfs, windows, linux, ubuntu</h2>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2013-08-30T15:13:47.000Z"><a href="/2013/08/30/filesystem-dilemma/">30 Aug 2013</a></time>
+      
+      
+  
+    <h1 class="title depth"><a href="/2013/08/30/filesystem-dilemma/">the Filesystem Dilemma</a></h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>Fellow readers, that’s one of the oldest problems in the world, more or less like the chicken and egg question… or schroedinger’s cat survivability chance.. or so it seems! </p>
+<p><strong>DISCLAIMER</strong>: this first blogpost came out really long, the problem is i worked on this quite few days ;-) </p>
+<p>What i do in my spare time is developing javascript client and server side broken software, and playing random videogames to keep me entertained :)<br>Said that, i’ve to admit i’ve used for a long time only m$ operating systems, just because i didn’t need the rest… while still being attracted by the open-source world. </p>
+<p>This changed since most of modern web servers work on linux systems (95%?!?), so to test my deployment systems a linux machine is heaven, having the possibility to open multiple consoles without going mad with tmux (altough it ROCKS!!), and i also like writing commands instead of using mouse to do everything… </p>
+<p>So i converted myself happily to Ubuntu, everything very cool… but i also f…in LOVE Steam! YES! I still thank Gabe and valve software for this in the odd nights of loneliness. While the platform has some linux games and definitely not-bad support, i don’t think the X server was thinked to be a gaming powerhouse, or that any of the videocard manufacturers are doing good work developing linux drivers… so… yeah… eww.. Welcome back Windows! </p>
+<p>Here it comes… dual boot, grub, settings again.. everything works!</p>
+<p>Nice things, would be cool to make a good use of my hard drives!<br>My configuration is composed of:</p>
+<p>A) Samsung 120Gb SSD - 64Gb for Ubuntu (very much!), 64Gb for windows8 (not so much, <a href="http://superuser.com/questions/463183/windows-8-disk-space-usage-vs-windows-7" target="_blank">read here</a>)<br>B) WD Green 3Tb hard drive - 2800Gb for the “shared partition”, 8Gb for swap partition<br>C) Samsung Green 2Tb hard drive - 100% space for the “shared partition”, it Will be used on another PC since this hd is detachable.  </p>
+<h2 id="First_Thing_First">First Thing First</h2>
+<p>Originally B-1 was a NTFS partition for historical reasons. While being read smoothly by Ubuntu, the write performance is particurarly bad (30~ mb/s instead of potential 120), but reading it’s not much better either!</p>
+<p>This performance is kind of important when i transfer data between B and C disks, i don’t wanna die of aging while the progressbar is loading… nonetheless, this kind of performance completely ruins the manufactorers mechanical efforts producing hard drives. </p>
+<h4 id="Backup">Backup</h4>
+<p>As a start i formatted disk 4 with ext4, seeing very nice performance (95-100~mb/s) i was thinking i was going the right way.<br>I copied all the data from disk B to disk C, that <em>took a while</em> also because reading speed was halved by ntfs driver. </p>
+<h2 id="First_Try_-_ext4">First Try - ext4</h2>
+<p>After formatting B-1 as ext4 and B-2 as swap, i copied all the data back top speed on Linux and i was excited to try it on my win8 installation! </p>
+<p><em>Excitement didn’t last much</em></p>
+<p>I was supposing that being an opensource filesystem it would have good support outside Linux Kernel… how wrong was I!! </p>
+<p>Ext support on Windows might be summed by some link i cannot find ATM, in short only 3 software promising to read/write ext partitions:</p>
+<ul>
+<li>Ext2Fsd - last version released in 2011 from then the development has halted, sourceforge project page is haunted. </li>
+<li>Ext2IFS - last release dated back 2008, i won’t even try muttering with it for my own sanity.</li>
+<li>Paragon ExtFS - recent release from Paragon software, while i like this company for their freeware/commercial products, it seems this project is closed source!</li>
+</ul>
+<p>So, my 3tb drive was formatted with a GPT partition table (MBR doesn’t let you use any more than 2048GB), using Paragon ExtFS it read my ext4 partition as Basic Disk (windows) so it didn’t let me mount it.<br>I’ve found a solution to this after N-hours debugging: you have to format your drive from Windows (as GPT), it creates some empty partitions (200mb at the start of the drive and 5mb at the end), then reboot into Linux and format B-1 as ext4. It will be read as ext4, still Paragon ExtFS crashes when mounting, <strong>FAIL</strong>.</p>
+<p>My second (and last!) solution was Ext2Fsd, while it supports successfully ext2, it’s clearly written on the website that Journaling is not supported, will probably break your data and it’s not recommended to be used.<br>While my data isn’t really <strong>important</strong>, I’m looking for a solution for everyday use, so i don’t want my partition breaking to pieces after a week of use. </p>
+<h4 id="First_try_outcome">First try outcome</h4>
+<p>I’ve tried anyway mounting the ext4 partition, reads successfully, also writes, but Ext2Fsd doesn’t remember settings for ext4 partitions, so you:</p>
+<ul>
+<li>can’t use pagefile.sys, since at start the partition will be always read-only</li>
+<li>will fear for your data to vanish someday… <em>soon</em>©</li>
+</ul>
+<p><strong>NOTE:</strong> speeds were everything excepts amazing on windows… (10MB/s write, 60-70MB/s read)</p>
+<h2 id="Second_Try_-_ext2_with_Options">Second Try - ext2 with Options</h2>
+<p>Well i was not satisfied, so i went back to Ubuntu, started formatting B-1 as ext2,and since it wasn’t very fast i went for dinner. </p>
+<p><strong>HALF AN HOUR LATER</strong></p>
+<p>Coming back i found gparted still misteriously formatting my partition, i pinched myself for a reality-check, well.. nothing happened, that was actually true! </p>
+<p>I stopped the process thinking that it hanged up at a certain point, rebooting and then running it from console i noticed the ext2 format takes a while writing superblocks.<br>That because ext2 was thinked for really small filesystems, a more-modern approach, like ext4, has an option for <code>lazy istantiation</code>; meaning the initial format is very fast, and when the partition gets mounted it quietly instantiates the superblocks.</p>
+<p>So i tried to create an ext2 partition with ONLY these options activated (<code>uninit_bg</code> and <code>lazy_itable_init</code> for the nerds), it should be ext2-compatible? <strong>No!</strong> but i really didn’t want to waste my life staring at the progress bar…</p>
+<h4 id="Second_try_outcome">Second try outcome</h4>
+<p>I copied over my steam folder, from linux, at decent <em>- while not optimum -</em> transfer speeds, rebooted into windows and started playing.</p>
+<p>Don’t Starve crashed after 15 minutes, and with him, the entire Ext driver crashed :) since the system became unresponsive and i had to shutdown the pc via plug-out!</p>
+<p><strong>COOL EXPERIENCE, LET’S NOT REPEAT IT</strong></p>
+<h2 id="Third_Try_-_ext2">Third Try - ext2</h2>
+<p>I’m really… really… unrelenting sometimes.</p>
+<p>Probably it was ext4 fast format options that fucked up everything, let’s make it slow and easy.<br>So one <code>mke2fs /dev/sdb1</code> later, and another 80Gb Steam folder copy, i rebooted into windows.</p>
+<h4 id="Third_try_outcome">Third try outcome</h4>
+<p>This came out depressing, i had the same problem as 2nd try, so driver crash while playing, Windows hangs up, plugoff.</p>
+<p><em>Eehhw… crap, Ext2Fsd seems really.. not adeguate.</em></p>
+<h2 id="The_twist_-_HFS+">The twist - HFS+</h2>
+<p>I went back to work and while explaining all that effort trying to <em>simply</em> use decently a partition with 2 operating systems (Ehy not 44 operating systems, just <strong>TWO</strong>), a friend of mine came out with the idea of thinking out of the box.</p>
+<p>Thinking out of the box here means: why not use Apple stuff?</p>
+<h5 id="WAT_?!?">WAT ?!?</h5>
+<p>Okey i probably would need to wash multiple times before feeling myself clean again, but.. it could be worth trying.<br>I formatted B-1 as HFS+. Linux support seems adeguate, except for the journaling, you <strong>cannot</strong> write on a HFS+ Journaled filesystem; too bad, who cares… it’s not system-critical data anyway.</p>
+<p>Writing performance from linux went well, i was pleased, it was similar to ext4, while CPU usage was of course much higher due to being a FUSE driver.</p>
+<h4 id="Fourth_try_not-outcome">Fourth try not-outcome</h4>
+<p>I rebooted into Windows and i found out that… Windows doesn’t support HFS at… <strong>ALL</strong>.<br>Well, easy to guess the 2 companies behind those technologies doesn’t love each other, but they have commercial contracts to support eachother’s devices, for example an iPhone on Windows is automatically detected without any effort.  </p>
+<p>But, <strong>of course</strong>, this doesn’t apply to partitions, the fabric of your informations!<br>I googled and googled, and seems there are different HFS drivers for Windows, that’s where i found informations regarding the 5th try.</p>
+<p>Anyway i wasn’t really incline to buy a 20-30USD license to try out a partition that is not native to Any of my Operating Systems; but <strong>probably</strong> this is the right way if you are willing to spend some dollars, because:</p>
+<ul>
+<li>a Windows commercial product probably works well, performing and being stable.</li>
+<li>the Linux implementation seems really robust, i was positively impressed!</li>
+</ul>
+<p>I wanted to try more <em>(4 tries and you want to try more? WTF)</em> before give up to Apple’s favourite filesystem!</p>
+<h3 id="Fifth_try_-_NTFS">Fifth try - NTFS</h3>
+<p><a href="http://superuser.com/questions/139452/kernel-ntfs-driver-vs-ntfs-3g" target="_blank">Introduction to status of NTFS in Linux.</a></p>
+<p>Reading on tuxera and Paragon websites i discovered that NTFS technology is well used on corporate platforms on Linux, just normal human beings don’t have access to those solutions.<br>Earth is always a nice place to be. :-/  </p>
+<p>Anyway, <a href="http://www.tuxera.com/mac/tuxera_ntfs_vs_ntfs-3g.pdf" target="_blank">NTFS “performance” driver from Tuxera</a> isn’t available to single users, it is probably the most performing driver, from what <a href="http://www.phoronix.com/scan.php?page=news_item&amp;px=OTU5Ng" target="_blank">Tuxera writes</a>.<br>There is also a <a href="http://www.paragon-software.com/home/ntfs-linux-professional/comparison.html" target="_blank">Paragon product</a>, but… seems really old (kernel 2.6.x ?!!), and costs only 40USD.</p>
+<p>I would like to buy the paragon product if the informations were satisfactory, like.. my 3.8 kernel is supported or .. not?</p>
+<p>I tried the tuxera free (former ntfs-3g) driver, it works fine with a modern kernel, but it gets outperformed by standard Linux FUSE implementation. (that is the same driver, just newer, probably!) </p>
+<p>So, kind of a <em>No</em> for the <strong>free</strong> solution, a <strong>maybe</strong> for the commercial one.</p>
+<h4 id="Fifth_try_outcome">Fifth try outcome</h4>
+<p>The only real handy thing that comes out the <code>ntfs-3g</code> package is the mkntfs tool, so i don’t have to reboot into windows to format :) (or just install <code>ntfsprogs</code>)</p>
+<p>Unless don’t even try <code>ntfs-3g</code>, just use classic ntfs implementation, performance is is kind of 50% than native, when you’re lucky, on Linux.</p>
+<h3 id="Sixth_try_-_exFAT">Sixth try - exFAT</h3>
+<p>So i surrendered to the FUSE system, there’s no way out of this after 5 tries, so i wanted to try the most common and (in) famous filesystem.<br>I started meddling with Linux support, it doesn’t seem bad, i’ve tried with very simple benchmark <em>(dd big file)</em> and it steadily goes faster than NTFS &amp; HFS+. Of course that doesn’t mean much: usually videogames or, generally speaking, software are made of many small files so performance will degrade much, and usually more complex filesystems like the mentioned above manage that case <strong>Much</strong> better. </p>
+<p>Said that, formatting the partition with 8192 <code>sectors-per-cluster</code> seemed to me the best-effort in performance, i reached a solid 150mb/s writing sequential files, never seen that number before! </p>
+<p>Linux FUSE for exFAT is not bad after all, the driver uses 2025% cpu usage for <em>One</em> processor, has the chkfs, mkfs commands and supports all the capabilities of the filesystem (altough not being many, lol!)</p>
+<h4 id="Sixth_try_outcome">Sixth try outcome</h4>
+<p>Of course windows stability and performance on this filesystem is optimal so…<br>…i finally settled for the old dear FAT in 2013!</p>
+<p>I don’t find that as a disappointment, after all those tries i really suppose i should have tried before lady FAT. </p>
+<p><strong>Important update</strong>: as i was writing this article i found out that came out public a <a href="https://github.com/dorimanx/exfat-nofuse" target="_blank">proprietary exFAT leak as kernel driver</a>! You can read some funny background <a href="http://phoronix.com/forums/showthread.php?81642-Native-Linux-Kernel-Module-Is-Out-For-Microsoft-exFAT&amp;p=339638#post339638" target="_blank">here</a>, aside from that, while for patenting reason this won’t see the light in <a href="https://www.kernel.org/" target="_blank">official Kernel project</a>, it might become a very stable solution for the private user who really isn’t much concerned about license troubles. </p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside class="sidebar alignleft"><div class="personal-info" itemscope itemtype="http://schema.org/Person">
+  <figure>
+    
+      <div class="multiple-photos">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/782568548e458a2ff3058a0f46e0fa01.png?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/c495d5cc01ed37b5d82be67415b0d5dd.jpg?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/acbbe5812de9a2c6807e98d6f6ce039d.jpg?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://blogs.kcrw.com/pressplay/wp-content/uploads/2014/01/Grumpy-Cat1.jpg" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://sms111.org/wallpapers/wp-content/uploads/2013/06/Grumpy-Cat-Cute.jpg" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://fc06.deviantart.net/fs70/i/2013/013/2/c/grumpy_cat_by_adlynh-d5rdjjr.png" alt="Valerio Coltre">
+        
+      </div>
+    
+    <figcaption>
+      <h3 itemprop="name">Valerio Coltre</h3>
+      <p>Grumpy developer from Rome, messing with technology</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/mrgamer" itemprop="url"></a>
+    
+    
+      <a target="_blank" class="icon email depth" href="mailto:valerio.coltre@gmail.com" itemprop="email"></a>
+    
+    
+      <a target="_blank" class="icon linkedin depth" href="http://www.linkedin.com/profile/view?id=164792637"></a>
+    
+  </section>
+</div>
+
+  
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="inner footer"><div class="alignright depth">
+  <a href="http://github.com/thiagopnts/hexo-persona-dark" style="text-decoration: underline;">Persona Dark Theme</a> 
+  &copy; - 2014 Valerio Coltre
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script type="text/javascript" src="/libs/eventEmitter/EventEmitter.min.js"></script>
+<script type="text/javascript" src="/libs/eventie/eventie.js"></script>
+<script type="text/javascript" src="/libs/imagesloaded/imagesloaded.js"></script>
+<script type="text/javascript" src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'col3me';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/libs/fancybox/source/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>

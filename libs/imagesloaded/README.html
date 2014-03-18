@@ -1,0 +1,151 @@
+<h1 id="imagesLoaded">imagesLoaded</h1>
+<p class="tagline">JavaScript is all like “You images done yet or what?”</p>
+
+<p><a href="http://imagesloaded.desandro.com">imagesloaded.desandro.com</a></p>
+<p>Detect when images have been loaded.</p>
+<!-- demo -->
+
+<h2 id="Install">Install</h2>
+<p>Get a packaged source file:</p>
+<ul>
+<li><a href="http://imagesloaded.desandro.com/imagesloaded.pkgd.min.js">imagesloaded.pkgd.min.js</a></li>
+<li><a href="http://imagesloaded.desandro.com/imagesloaded.pkgd.js">imagesloaded.pkgd.js</a></li>
+</ul>
+<p>Or install via <a href="http://bower.io">Bower</a>:</p>
+<pre><code class="bash">bower install imagesloaded
+</code></pre>
+<p>Or install via <a href="https://github.com/component/component">Component</a>:</p>
+<pre><code class="js">bower install desandro/imagesloaded
+</code></pre>
+<h2 id="Usage">Usage</h2>
+<pre><code class="js">imagesLoaded( elem, callback )
+<span class="comment">// you can use `new` if you like</span>
+<span class="keyword">new</span> imagesLoaded( elem, callback )
+</code></pre>
+<ul>
+<li><code>elem</code> <em>Element, NodeList, Array, or Selector String</em></li>
+<li><code>callback</code> <em>Function</em> - function triggered after all images have been loaded</li>
+</ul>
+<p>Using a callback function is the same as binding it to the <code>always</code> event (see below).</p>
+<pre><code class="js"><span class="comment">// element</span>
+imagesLoaded( document.querySelector(<span class="string">'#container'</span>), <span class="function"><span class="keyword">function</span><span class="params">( instance )</span> {</span>
+  console.log(<span class="string">'all images are loaded'</span>);
+});
+<span class="comment">// selector string</span>
+imagesLoaded( <span class="string">'#container'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>...});
+<span class="comment">// multiple elements</span>
+<span class="keyword">var</span> posts = document.querySelectorAll(<span class="string">'.post'</span>);
+imagesLoaded( posts, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>...});
+</code></pre>
+<h2 id="Events">Events</h2>
+<p>imagesLoaded is an Event Emitter. You can bind event listeners to events.</p>
+<pre><code class="js"><span class="keyword">var</span> imgLoad = imagesLoaded( elem );
+<span class="function"><span class="keyword">function</span> <span class="title">onAlways</span><span class="params">( instance )</span> {</span>
+  console.log(<span class="string">'all images are loaded'</span>);
+}
+<span class="comment">// bind with .on()</span>
+imgLoad.on( <span class="string">'always'</span>, onAlways );
+<span class="comment">// unbind with .off()</span>
+imgLoad.off( <span class="string">'always'</span>, onAlways );
+</code></pre>
+<h3 id="always">always</h3>
+<pre><code class="js">imgLoad.on( <span class="string">'always'</span>, <span class="function"><span class="keyword">function</span><span class="params">( instance )</span> {</span>
+  console.log(<span class="string">'ALWAYS - all images have been loaded'</span>);
+});
+</code></pre>
+<p>Triggered after all images have been either loaded or confirmed broken.</p>
+<ul>
+<li><code>instance</code> <em>imagesLoaded</em> - the imagesLoaded instance</li>
+</ul>
+<h3 id="done">done</h3>
+<pre><code class="js">imgLoad.on( <span class="string">'done'</span>, <span class="function"><span class="keyword">function</span><span class="params">( instance )</span> {</span>
+  console.log(<span class="string">'DONE  - all images have been successfully loaded'</span>);
+});
+</code></pre>
+<p>Triggered after all images have successfully loaded without any broken images.</p>
+<h3 id="fail">fail</h3>
+<pre><code class="js">imgLoad.on( <span class="string">'fail'</span>, <span class="function"><span class="keyword">function</span><span class="params">( instance )</span> {</span>
+  console.log(<span class="string">'FAIL - all images loaded, at least one is broken'</span>);
+});
+</code></pre>
+<p>Triggered after all images have been loaded with at least one broken image.</p>
+<h3 id="progress">progress</h3>
+<pre><code class="js">imgLoad.on( <span class="string">'progress'</span>, <span class="function"><span class="keyword">function</span><span class="params">( instance, image )</span> {</span>
+  <span class="keyword">var</span> result = image.isLoaded ? <span class="string">'loaded'</span> : <span class="string">'broken'</span>;
+  console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src );
+});
+</code></pre>
+<p>Triggered after each image has been loaded.</p>
+<ul>
+<li><code>instance</code> <em>imagesLoaded</em> - the imagesLoaded instance</li>
+<li><code>image</code> <em>LoadingImage</em> - the LoadingImage instance of the loaded image</li>
+</ul>
+<h2 id="Properties">Properties</h2>
+<h3 id="LoadingImage-img">LoadingImage.img</h3>
+<p><em>Image</em> - The <code>img</code> element</p>
+<h3 id="LoadingImage-isLoaded">LoadingImage.isLoaded</h3>
+<p><em>Boolean</em> - <code>true</code> when the image has succesfully loaded</p>
+<h3 id="imagesLoaded-images">imagesLoaded.images</h3>
+<p>Array of <em>LoadingImage</em> instances for each image detected</p>
+<pre><code class="js"><span class="keyword">var</span> imgLoad = imagesLoaded(<span class="string">'#container'</span>);
+imgLoad.on( <span class="string">'always'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  console.log( imgLoad.images.length + <span class="string">' images loaded'</span> );
+  <span class="comment">// detect which image is broken</span>
+  <span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">0</span>, len = imgLoad.images.length; i &lt; len; i++ ) {
+    <span class="keyword">var</span> image = imgLoad.images[i];
+    <span class="keyword">var</span> result = image.isLoaded ? <span class="string">'loaded'</span> : <span class="string">'broken'</span>;
+    console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src );
+  }
+});
+</code></pre>
+<h2 id="jQuery">jQuery</h2>
+<p>If you include jQuery, imagesLoaded can be used as a jQuery Plugin.</p>
+<pre><code class="js">$(<span class="string">'#container'</span>).imagesLoaded( <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="comment">// images have loaded</span>
+});
+</code></pre>
+<h3 id="jQuery_Deferred">jQuery Deferred</h3>
+<p>The jQuery plugin returns a <a href="http://api.jquery.com/category/deferred-object/">jQuery Deferred object</a>. This allows you to use <code>.always()</code>, <code>.done()</code>, <code>.fail()</code> and <code>.progress()</code>, similarly to the emitted events.</p>
+<pre><code class="js">$(<span class="string">'#container'</span>).imagesLoaded()
+  .always( <span class="function"><span class="keyword">function</span><span class="params">( instance )</span> {</span>
+    console.log(<span class="string">'all images loaded'</span>);
+  })
+  .done( <span class="function"><span class="keyword">function</span><span class="params">( instance )</span> {</span>
+    console.log(<span class="string">'all images successfully loaded'</span>);
+  })
+  .fail( <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    console.log(<span class="string">'all images loaded, at least one is broken'</span>);
+  })
+  .progress( <span class="function"><span class="keyword">function</span><span class="params">( instance, image )</span> {</span>
+    <span class="keyword">var</span> result = image.isLoaded ? <span class="string">'loaded'</span> : <span class="string">'broken'</span>;
+    console.log( <span class="string">'image is '</span> + result + <span class="string">' for '</span> + image.img.src );
+  });
+</code></pre>
+<h2 id="RequireJS">RequireJS</h2>
+<p>imagesLoaded works with <a href="http://requirejs.org">RequireJS</a>.</p>
+<p>You can require <a href="http://imagesloaded.desandro.com/imagesloaded.pkgd.js">imagesloaded.pkgd.js</a>.</p>
+<pre><code class="js">requirejs( [
+  <span class="string">'path/to/imagesloaded.pkgd.js'</span>,
+], <span class="function"><span class="keyword">function</span><span class="params">( imagesLoaded )</span> {</span>
+  imagesLoaded( <span class="string">'#container'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> ... });
+});
+</code></pre>
+<p>Or, you can manage dependencies with <a href="http://bower.io">Bower</a>. Set <code>baseUrl</code> to <code>bower_components</code> and set a path config for all your application code.</p>
+<pre><code class="js">requirejs.config({
+  baseUrl: <span class="string">'bower_components/'</span>,
+  paths: { <span class="comment">// path your your app</span>
+    app: <span class="string">'../'</span>
+  }
+});
+
+requirejs( [
+  <span class="string">'imagesloaded/imagesloaded'</span>,
+  <span class="string">'app/my-component.js'</span>
+], <span class="function"><span class="keyword">function</span><span class="params">( imagesLoaded, myComp )</span> {</span>
+  imagesLoaded( <span class="string">'#container'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span> ... });
+});
+</code></pre>
+<h2 id="Contributors">Contributors</h2>
+<p>This project has a <a href="https://github.com/desandro/imagesloaded/graphs/contributors">storied legacy</a>. Its current incarnation was developed by <a href="http://darsa.in/">Tomas Sardyha @Darsain</a> and <a href="http://desandro.com">David DeSandro @desandro</a>.</p>
+<h2 id="MIT_License">MIT License</h2>
+<p>imagesLoaded is released under the <a href="http://desandro.mit-license.org/">MIT License</a>. Have at it.</p>

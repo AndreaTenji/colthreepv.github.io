@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>angularjs, mock, backend, javascript, html5, plunkr, gist | Grumpy Dev Blog</title>
+  <meta name="author" content="Valerio Coltre">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Grumpy Dev Blog"/>
+
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Grumpy Dev Blog" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" type="text/css">
+  <!--[if lt IE 9]><script src="/libs/html5shiv/dist/html5shiv.js"></script><![endif]-->
+  <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
+  <script>
+  $(document).ready(function() {
+    var photos = $('.sidebar .personal-photo');
+    // choose a random picture and show it
+    photos.eq(Math.floor(Math.random() * photos.length)).removeClass('hidden');
+
+    $('.sidebar').delay(400).animate({ width: '285px' }, 500, function() {
+      $('.personal-info').css({ display: 'table' }).hide().fadeIn(500);
+      $('.sidebar > .search').hide().fadeIn(500);
+    });
+  });
+  </script>
+  
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-42587136-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+
+</head>
+
+
+<body>
+  <header class="inner"><header>
+  <div class="inner">
+    <a href="/">
+      <p class="main-col blog-title">Grumpy Dev Blog</p>
+    </a>
+  </div>
+</header>
+</header>
+  <div class="inner">
+    <div class="main-col alignright"><div class="wrapper">
+<h2 class="archive-title tag">angularjs, mock, backend, javascript, html5, plunkr, gist</h2>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon depth"></div>
+        <time class="depth" datetime="2013-10-19T13:35:42.000Z"><a href="/2013/10/19/full-backend-mock-with-angularjs/">19 Oct 2013</a></time>
+      
+      
+  
+    <h1 class="title depth"><a href="/2013/10/19/full-backend-mock-with-angularjs/">Full Backend Mock With Angular Js</a></h1>
+  
+
+    </header>
+    <div class="entry depth">
+      
+        <p>If you ever developed a multi-layered web application, you <em>might</em> had to wait for backend to be in line with your client application, or some sysadmin to stop slacking… or <em>anything else, really</em>.<br>While waiting for someone or something to work you might have lost people interest, or have missed a client’s demonstration…fear not!<br>If you are using AngularJS, the good news is that you have a workaround to make things <em>appear</em> to work :)</p>
+<h3 id="ngMockE2E">ngMockE2E</h3>
+<p>First thing, you will need to include <a href="http://docs.angularjs.org/api/ngMockE2E.$httpBackend" target="_blank">ngMockE2E</a> module in your application.<br>Since the Angular’s modularized nature you can include a specific <em>mock</em> module in your application, and when the backend is ready to work, just remove the<br>module inclusion, it will work with your <em>true backend</em> with no additional coding!</p>
+<p>NOTE: the module to use for mocking is <a href="http://docs.angularjs.org/api/ngMockE2E.$httpBackend" target="_blank">ngMockE2E</a> <strong>not</strong> <a href="http://docs.angularjs.org/api/ngMock.$httpBackend" target="_blank">ngMock</a>.<br>The former only mocks the <code>$httpBackend</code> service, and auto-responds to requests, that’s exactly why we want to use it!</p>
+<p>A little example about how it works:</p>
+<script src="https://gist.github.com/7056200.js?file=mock.js"></script>
+
+<p><a href="https://gist.github.com/mrgamer/7056200" target="_blank">view full gist here</a></p>
+<p><a href="http://plnkr.co/edit/6LInNX?p=preview" target="_blank">plunker working demo</a></p>
+<p>As you can see ngMock require a synchronous return object, there’s no workaround for this, it’s desiged for testing, and for simplicity.<br>Although you can access/write <a href="http://caniuse.com/namevalue-storage" target="_blank">localStorage</a>, <a href="http://caniuse.com/sql-storage" target="_blank">SQlite</a> or <a href="http://caniuse.com/indexeddb" target="_blank">indexedDB</a> synchronously, so you’ve many opportunities to manipulate data.  </p>
+<h5 id="Some_outdated_table_about_browser_support">Some outdated table about browser support</h5>
+<img src="http://blog.elendev.com/wp-content/uploads/2011/12/localStorageBrowserSupport.png" title="thanks to elendev.com">
+
+
+<p>While i don’t see many limits with this, sometimes you’ll want to simulate a true backend, with the classic delays that suits a true AJAX response.<br>They were invented to be <em>slow</em> after all, otherwise they would be synchronous</p>
+<h3 id="The_next_level,_delay-">The next level, delay.</h3>
+<p>ngMock of course isn’t thinked with delay support, some <a href="http://endlessindirection.wordpress.com/2013/05/18/angularjs-delay-response-from-httpbackend/" target="_blank">brilliant guy</a> made a decorator to delay all the responses, but i wanted to do more.<br>In a public project that i’m developing, i needed xhr request abortion, that of course isn’t supported in mocking; in other words every request made gets completed, no matter what  </p>
+<p>But we can simulate <em>angular.js</em> behaviour with a simple <code>$http</code> interceptor:</p>
+<script src="https://gist.github.com/7056188.js?file=mock-delay.js"></script>
+
+
+<p>Possibilities here are vast, randomize timeout, simulate packet drops, authentication simulation, many ideas can take life with just those simple pieces of code.  </p>
+<p><a href="http://plnkr.co/edit/1FzwgQ?p=preview" target="_blank">plunker live demo with random delay</a></p>
+<p>I hope some hackers love this flexibility as much as i do, happy coding!</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
+</div></div>
+    <aside class="sidebar alignleft"><div class="personal-info" itemscope itemtype="http://schema.org/Person">
+  <figure>
+    
+      <div class="multiple-photos">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/782568548e458a2ff3058a0f46e0fa01.png?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/c495d5cc01ed37b5d82be67415b0d5dd.jpg?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/acbbe5812de9a2c6807e98d6f6ce039d.jpg?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://blogs.kcrw.com/pressplay/wp-content/uploads/2014/01/Grumpy-Cat1.jpg" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://sms111.org/wallpapers/wp-content/uploads/2013/06/Grumpy-Cat-Cute.jpg" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://fc06.deviantart.net/fs70/i/2013/013/2/c/grumpy_cat_by_adlynh-d5rdjjr.png" alt="Valerio Coltre">
+        
+      </div>
+    
+    <figcaption>
+      <h3 itemprop="name">Valerio Coltre</h3>
+      <p>Grumpy developer from Rome, messing with technology</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/mrgamer" itemprop="url"></a>
+    
+    
+      <a target="_blank" class="icon email depth" href="mailto:valerio.coltre@gmail.com" itemprop="email"></a>
+    
+    
+      <a target="_blank" class="icon linkedin depth" href="http://www.linkedin.com/profile/view?id=164792637"></a>
+    
+  </section>
+</div>
+
+  
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer class="inner footer"><div class="alignright depth">
+  <a href="http://github.com/thiagopnts/hexo-persona-dark" style="text-decoration: underline;">Persona Dark Theme</a> 
+  &copy; - 2014 Valerio Coltre
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script type="text/javascript" src="/libs/eventEmitter/EventEmitter.min.js"></script>
+<script type="text/javascript" src="/libs/eventie/eventie.js"></script>
+<script type="text/javascript" src="/libs/imagesloaded/imagesloaded.js"></script>
+<script type="text/javascript" src="/js/gallery.js"></script>
+
+
+<script type="text/javascript">
+var disqus_shortname = 'col3me';
+
+(function(){
+  var dsq = document.createElement('script');
+  dsq.type = 'text/javascript';
+  dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+}());
+</script>
+
+
+
+<link rel="stylesheet" href="/libs/fancybox/source/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/libs/fancybox/source/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+</html>
