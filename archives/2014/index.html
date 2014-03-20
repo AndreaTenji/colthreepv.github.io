@@ -3,15 +3,13 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello Hexo Blogengine | Grumpy Dev Blog</title>
+  <title>Archives: 2014 | Grumpy Dev Blog</title>
   <meta name="author" content="Valerio Coltre">
-  
-  <meta name="description" content="My grumpy days are not those days in which i’m experimenting with Hexo.This tiny, but fast, and customizable static page generator annihilates my bad ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta property="og:title" content="Hello Hexo Blogengine"/>
+  
   <meta property="og:site_name" content="Grumpy Dev Blog"/>
 
   
@@ -60,7 +58,12 @@
 </header>
 </header>
   <div class="inner">
-    <div class="main-col"><div class="wrapper"><article class="post">
+    <div class="main-col"><div class="wrapper">
+<h2 class="archive-title">2014</h2>
+
+
+  
+    <article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -78,23 +81,52 @@
     <header>
       
         <div class="icon depth"></div>
-        <time class="depth" datetime="2013-09-22T20:26:31.000Z"><a href="/2013/09/22/hello-hexo-blogengine/">22 Sep 2013</a></time>
+        <time class="depth" datetime="2014-03-20T10:01:18.000Z"><a href="/2014/03/20/grub4dos/">20 Mar 2014</a></time>
       
       
   
-    <h1 class="depth title">Hello Hexo Blogengine</h1>
+    <h1 class="title depth"><a href="/2014/03/20/grub4dos/">Grub4dos in 10 Minutes</a></h1>
   
 
     </header>
     <div class="entry depth">
       
-        <p>My grumpy days are not those days in which i’m experimenting with <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a>.<br>This tiny, but fast, and customizable static page generator annihilates my bad thoughts.</p>
+        <p>One of the main issues that slows down the adoption of grub4dos is the lack of recent documentation or examples. </p>
+<h2 id="For_those_that_have_no_idea_of_what_is_it:">For those that have no idea of what is it:</h2>
+<p>Is a boot loader with premium functionality, designed for ease of use, and usable with FAT32 and NTFS.<br>Yeah for those that know GRUB, it might seem an aberration, and it might as well be! It’s very handy to make multiboot devices,<br>especially usb pen drives (although it might be used as normal bootloader for your hard drive)</p>
+<p>The <code>premium</code> functionality I’m talking about are: boot of <em>.iso</em> images, loading them into ram, easy change drive composition<br>(ex: rename hd0 to hd4, if that might be useful), compatibility with old DOS images</p>
+<h2 id="What_i_use_it_for">What i use it for</h2>
+<p>Recovery USB pen with ubuntu livecd (the really heavylifter here!), dos command line (just downloadable <code>.img</code> <a href="http://www.allbootdisks.com/download/dos.html" target="_blank">from Internet</a> )<br>for firmware upgrades, wierd commercial recovery software (in case i ever need that…)</p>
+<p>Such a drive can handle windows installations (more info on the next blogpost), ubuntu installations, data recovery from win/linux, drive resize and… many other things!</p>
+<h2 id="Snippet_for_ubuntu_12-04">Snippet for ubuntu 12.04</h2>
+<figure class="highlight dos"><figcaption><span>menu.lst </span></figcaption><table><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="code"><pre>title Ubuntu <span class="number">12</span>.<span class="number">04</span>.<span class="number">4</span>
+find --<span class="keyword">set</span>-root /ubuntu-<span class="number">12</span>.<span class="number">04</span>.<span class="number">4</span>-desktop-amd64.iso
+map /ubuntu-<span class="number">12</span>.<span class="number">04</span>.<span class="number">4</span>-desktop-amd64.iso (hd32) || map --mem /ubuntu-<span class="number">12</span>.<span class="number">04</span>.<span class="number">4</span>-desktop-amd64.iso (hd32)
+map --hook
+root (hd32)
+kernel /casper/vmlinuz.efi file=/preseed/ubuntu.seed boot=casper persistent iso-scan/filename=/ubuntu-<span class="number">12</span>.<span class="number">04</span>.<span class="number">4</span>-desktop-amd64.iso
+initrd  /casper/initrd.lz
+</pre></td></tr></table></figure>
+
+
+<p>Okey so how do you use that? Right.</p>
+<p>1) Don’t use vanilla grub4dos, that is OLD!<br>2) Download stable* 0.4.5 <a href="https://code.google.com/p/grub4dos-chenall/downloads/list" target="_blank">chenall grub</a><br>3) Download also the latest 0.4.6 release, it usually haves new features!</p>
+<p>INSTALL TIME:</p>
+<p>A) Unzip (2) <code>7z x grub4dos-0.4.5c-2014-01-17.7z</code><br>B) Unzip (3) <code>7z x grub4dos-0.4.6a-2014-01-17.7z</code><br>C) Run <code>grub4dos-0.4.5c/bootlace.com &lt;DRIVE&gt;</code>, this <strong>WILL OVERWRITE THE MBR</strong><br>D) Mount your drive with commandline or via UI<br>E) Copy <code>cp grub4dos-0.4.6a/grldr grub4dos-0.4.6a/sample/menu.lst grub4dos-0.4.6a/sample/default &lt;MOUNTPOINT&gt;</code><br>F) Customize <code>&lt;MOUNTPOINT&gt;/menu.lst</code> with your favorite iso/commands</p>
+<p>Reference to <a href="http://diddy.boot-land.net/grub4dos/Grub4dos.htm" target="_blank">grub4dos documentation</a>, quite old but gold!</p>
+<p>*: we are downloading 2 versions because 0.4.6 line gives me <code>Segmentation fault</code> when running <code>bootlace.com</code>!</p>
 
       
     </div>
     <footer>
       
-        
         
         
       
@@ -104,12 +136,13 @@
 </article>
 
 
-<section id="comment">
-  <h1 class="title">Comments</h1>
-  <div id="disqus_thread">
-    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</section>
+  
+
+  <nav id="pagination">
+  
+  
+  <div class="clearfix"></div>
+</nav>
 </div></div>
     <aside class="sidebar alignleft"><div class="personal-info" itemscope itemtype="http://schema.org/Person">
   <figure>
@@ -174,7 +207,7 @@ var disqus_shortname = 'col3me';
   var dsq = document.createElement('script');
   dsq.type = 'text/javascript';
   dsq.async = true;
-  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
 }());
 </script>

@@ -17,11 +17,6 @@ body {
   font-size: 14px;
   text-shadow: 0 0 1px transparent;
 }
-@media screen and (max-width: 1260px) {
-  body {
-    margin: 0 30px;
-  }
-}
 @media screen and (max-width: 600px) {
   body {
     font-size: 13px;
@@ -77,44 +72,20 @@ a:hover {
   clear: both;
 }
 .inner {
-  width: 1200px;
   margin: 0 auto;
 }
-@media screen and (max-width: 1260px) {
-  .inner {
-    width: 100%;
-  }
-}
 .main-col {
-  width: 900px;
   overflow: auto;
+  margin-left: 0;
 }
-@media screen and (max-width: 1260px) {
+@media (min-width: 1240px) {
   .main-col {
-    width: 100%;
-    margin-right: -300px;
-  }
-}
-@media screen and (max-width: 900px) {
-  .main-col {
-    margin-right: 0;
-    float: none;
-  }
-}
-@media screen and (max-width: 1260px) {
-  .wrapper {
-    margin-right: 300px;
-  }
-}
-@media screen and (max-width: 900px) {
-  .wrapper {
-    margin-right: 0;
+    margin-left: 290px;
   }
 }
 .blog-title {
   text-shadow: 0 0 1px #fff;
   font-size: 36px;
-  float: right;
   padding-bottom: 6px;
   border-bottom: 1px solid #f00;
   color: #999;
@@ -342,7 +313,7 @@ article .entry pre {
   font-family: Monaco, Menlo, Consolas, Courier New, monospace;
 }
 article .entry code {
-  background: #444;
+  background: transparent;
   color: #fff;
   padding: 0 5px;
   margin: 0 2px;
@@ -352,7 +323,7 @@ article .entry code {
   border-radius: 3px;
 }
 article .entry pre {
-  background: #444;
+  background: transparent;
   border: 1px solid #292929;
   margin-top: 15px;
   overflow: auto;
@@ -508,7 +479,7 @@ article footer .addthis iframe {
 }
 #comment {
   padding: 20px;
-  background: #444;
+  background: transparent;
   -webkit-box-shadow: 1px 2px 3px #ddd;
   box-shadow: 1px 2px 3px #ddd;
   margin-bottom: 50px;
@@ -588,7 +559,7 @@ article footer .addthis iframe {
   -webkit-box-shadow: 1px 0 0 0 #222;
   box-shadow: 1px 0 0 0 #222;
 }
-@media screen and (max-width: 900px) {
+@media (max-width: 1239px) {
   .sidebar {
     display: none;
   }
@@ -779,8 +750,8 @@ figure.highlight {
   border: 1px solid #292929;
   margin-top: 15px;
   padding: 7px 15px;
-  -webkit-border-radius: 2px;
-  border-radius: 2px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
   text-shadow: 0 0 1px #fff;
   line-height: 1.6;
   overflow: auto;
