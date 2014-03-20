@@ -24,13 +24,14 @@
   <script type="text/javascript" src="//code.jquery.com/jquery-2.1.0.min.js"></script>
   <script>
   $(document).ready(function() {
-    var photos = $('.sidebar .personal-photo');
+    var photosSide = $('.sidebar .personal-photo'),
+        photosBottom = $('.bottombar .personal-photo');
     // choose a random picture and show it
-    photos.eq(Math.floor(Math.random() * photos.length)).removeClass('hidden');
+    photosSide.eq(Math.floor(Math.random() * photosSide.length)).removeClass('hidden');
+    photosBottom.eq(Math.floor(Math.random() * photosSide.length)).removeClass('hidden');
 
     $('.sidebar').delay(400).animate({ width: '285px' }, 500, function() {
       $('.personal-info').css({ display: 'table' }).hide().fadeIn(500);
-      $('.sidebar > .search').hide().fadeIn(500);
     });
   });
   </script>
@@ -246,6 +247,48 @@
   
 </div>
 <div class="clearfix"></div></footer>
+  <aside class="bottombar"><div class="personal-info" itemscope itemtype="http://schema.org/Person">
+  <figure>
+    
+      <div class="multiple-photos">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/782568548e458a2ff3058a0f46e0fa01.png?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/c495d5cc01ed37b5d82be67415b0d5dd.jpg?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="https://en.gravatar.com/userimage/42435845/acbbe5812de9a2c6807e98d6f6ce039d.jpg?size=200" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://blogs.kcrw.com/pressplay/wp-content/uploads/2014/01/Grumpy-Cat1.jpg" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://sms111.org/wallpapers/wp-content/uploads/2013/06/Grumpy-Cat-Cute.jpg" alt="Valerio Coltre">
+        
+        <img class="personal-photo hidden" src="http://fc06.deviantart.net/fs70/i/2013/013/2/c/grumpy_cat_by_adlynh-d5rdjjr.png" alt="Valerio Coltre">
+        
+      </div>
+    
+    <figcaption>
+      <h3 itemprop="name">Valerio Coltre</h3>
+      <p>Grumpy developer from Rome, messing with technology</p>
+    </figcaption>
+  </figure>
+  <section class="social">
+    
+    
+    
+      <a target="_blank" class="icon github depth" href="http://github.com/mrgamer" itemprop="url"></a>
+    
+    
+      <a target="_blank" class="icon email depth" href="mailto:valerio.coltre@gmail.com" itemprop="email"></a>
+    
+    
+      <a target="_blank" class="icon linkedin depth" href="http://www.linkedin.com/profile/view?id=164792637"></a>
+    
+  </section>
+</div>
+
+  
+
+</aside>
   <script type="text/javascript" src="/libs/eventEmitter/EventEmitter.min.js"></script>
 <script type="text/javascript" src="/libs/eventie/eventie.js"></script>
 <script type="text/javascript" src="/libs/imagesloaded/imagesloaded.js"></script>
